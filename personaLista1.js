@@ -205,28 +205,32 @@ function Lista (){
 		return encontrado;
 	}
 	
-	this.borrar = function(posicion){//Funcion remove. Sacar el elemento borrado de la lista, pasandole la lista y la posicion
-		if(posicion > (MAX_ELEMENTO - 1) || posicion < 0){
-			throw new ningunaInstancia().toString();
+	this.borrar = function(posicion) {//Funcion remove. Sacar el elemento borrado de la lista, pasandole la lista y la posicion
+		if(isNaN(posicion)){
+			throw new posicionIncorrecta(posicion).toString();
 		}
-		if(!this.estaVacio()){
-			var borrado = lista.splice(posicion,1);
+		if (posicion > (MAX_ELEMENTO - 1) || posicion < 0){
+			throw new fueraTamanho(posicion).toString();
+		}
+		if (this.estaVacio()){ 
+			throw new vacio().this.toString();
 		}else{
-			throw new vacio().toString();
+			var borrado = lista[posicion];
+			lista.splice(posicion, 1);
 		}
-		return borrado;
+		return borrado.nombreCompleto();
 	}
 	
 	this.borrarElemento = function(elem) { //Funcion removeElement. Eliminara el elemento si se encuentra en el array y devolvera verdadero o falso
 		if(!(elem instanceof Persona)){
 			throw new ningunaInstancia().toString();
 		}
-		if (estaVacio(lista)){
+		if (this.estaVacio()){
 			throw new vacio().toString();
 		}
 		var borrado = -1;
 		var eliminado = false;
-		var tam = tamanho(lista) - 1;
+		var tam = this.tamanho() - 1;
 		while (lista[tam] >= elem) {
 			if (lista[tam] === elem){
 				borrado = lista.splice(tam, 1);
@@ -246,6 +250,7 @@ function testLista(){
 	var per4 = new Persona("Laura","Gadea");
 	var per5 = new Persona("Lucia","Gil");
 	var per6 = new Persona("Miguel","Diaz");
+	var per7 = new Persona("Pepe","Diaz");
 
 	var lista = new Lista();
 	console.log ("Capacidad: " + lista.capacidad());
@@ -265,11 +270,36 @@ function testLista(){
 	console.log(lista.escribir());
     console.log("Primer elemento: " + lista.primerElemento());
     console.log("Ultimo elemento: " + lista.ultimoElemento());
-	console.log("Funcion set: " + lista.sustituir(per6, 0));
+	try{
+			console.log("Muestra la persona de la posicion 2 desde el principio: " + lista.indiceDe(per2));
+			console.log("Muestra la persona de la posicion 2 desde el principio: " + lista.indiceDe(per7));
+	}catch(err){
+			console.log(err);
+	}
+	try{
+			console.log("Muestra la persona de la posicion 2 desde la ultima posicion: " + lista.ultimoIndiceDe(per2));
+			console.log("Muestra la persona de la posicion 2 desde la ultima posicion: " + lista.ultimoIndiceDe(per7));
+	}catch(err){
+			console.log(err);
+	}
+	console.log("EL devuelve la persona que esta en la posicion 2: " + lista.devolverElemento(2));
+	console.log("Sustituye la persona de la posicion 2 por la per6: " + lista.sustituir(per6,3));
 	console.log(lista.escribir());
-	console.log("Funcion get: " + lista.devolverElemento(2));
-	console.log("Funcion indiceDe: " + lista.indiceDe(per4));
-	console.log("Funcion ultimoIndiceDe: " + lista.ultimoIndiceDe(per4));
+	try{
+				 console.log("Borrar persona de la posicion 4: " + lista.borrar(4));
+				 console.log("Borrar persona de la posicion 46: " + listaOr.borrar(6));
+				 console.log("Borrar persona de la posicion hola: " + lista.borrar("hola"));
+	}catch(err){
+				console.log(err);
+	}
+		 try{
+			console.log("Borrar per1: " + lista.borrarElemento(per1));
+			console.log("Borrar per7: " + lista.borrarElemento(per7));
+			console.log("Borrar hola: " + lista.borrarElemento("hola"));
+		}catch (err){
+			console.log(err);
+		}
+		console.log(lista.escribir());
 	
 }
 

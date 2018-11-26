@@ -50,7 +50,7 @@ fueraTamanho.prototype = new error();
 fueraTamanho.prototype.constructor = fueraTamanho;
 
 
-function posicionIncorrecta(){ //creacion de la posicionIncorrecta
+function posicionIncorrecta(posicion){ //creacion de la posicionIncorrecta
     this.nombre = "posicionIncorrecta";
     this.mensaje = "La posicion tiene que ser un numero";
 }
@@ -217,7 +217,7 @@ function ListaOr(){ //creacion de la clase ListaOr
 
 	this.borrar = function(posicion) {//Funcion remove. Sacar el elemento borrado de la lista, pasandole la lista y la posicion
 		if(isNaN(posicion)){
-			throw new posicionIncorrecta().toString();
+			throw new posicionIncorrecta(posicion).toString();
 		}
 		if (posicion > (MAX_ELEMENTO - 1) || posicion < 0){
 			throw new fueraTamanho(posicion).toString();
@@ -258,6 +258,7 @@ function testListaOr(){
 		var per4 = new Persona("Laura","Gadea");
 		var per5 = new Persona("Lucia","Gadea");
 		var per6 = new Persona("Miguel","Diaz");
+		var per7 = new Persona("Pepe","Diaz");
 
 		var listaOr = new ListaOr();
 		console.log ("Capacidad: " + listaOr.capacidad());
@@ -277,13 +278,36 @@ function testListaOr(){
 		console.log(listaOr.escribir());
 		console.log("EL primer elemento de la lista es: " + listaOr.primerElemento());
 		console.log("EL primer elemento de la lista es: " + listaOr.ultimoElemento());
-		console.log("Muestra la persona de la posicion 2 desde el principio: " + listaOr.indiceDe(per2));
-		console.log("Muestra la persona de la posicion 2 desde la ultima posicion: " + listaOr.ultimoIndiceDe(per2));
+		try{
+			console.log("Muestra la persona de la posicion 2 desde el principio: " + listaOr.indiceDe(per2));
+			console.log("Muestra la persona de la posicion 2 desde el principio: " + listaOr.indiceDe(per7));
+		}catch(err){
+			console.log(err);
+		}
+		try{
+			console.log("Muestra la persona de la posicion 2 desde la ultima posicion: " + listaOr.ultimoIndiceDe(per2));
+			console.log("Muestra la persona de la posicion 2 desde la ultima posicion: " + listaOr.ultimoIndiceDe(per7));
+		}catch(err){
+			console.log(err);
+		}
 		console.log("EL devuelve la persona que esta en la posicion 2: " + listaOr.devolverElemento(2));
 		console.log("Sustituye la persona de la posicion 2 por la per6: " + listaOr.sustituir(per6,3));
 		console.log(listaOr.escribir());
-		console.log("Borrar persona de la posicion 4: " + listaOr.borrar(4));
-		console.log("Borrar per1: " + listaOr.borrarElemento(per1));
+		
+		try{
+				 console.log("Borrar persona de la posicion 4: " + listaOr.borrar(4));
+				 //console.log("Borrar persona de la posicion 46: " + listaOr.borrar(6));
+				 console.log("Borrar persona de la posicion hola: " + listaOr.borrar("hola"));
+		}catch(err){
+				console.log(err);
+		}
+		 try{
+			console.log("Borrar per1: " + listaOr.borrarElemento(per1));
+			console.log("Borrar per7: " + listaOr.borrarElemento(per7));
+			console.log("Borrar hola: " + listaOr.borrarElemento("hola"));
+		}catch (err){
+			console.log(err);
+		}
 		console.log(listaOr.escribir());
 	
 }
