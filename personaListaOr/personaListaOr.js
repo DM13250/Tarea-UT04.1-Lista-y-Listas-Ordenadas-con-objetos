@@ -1,32 +1,23 @@
 "use strict"
 
 function error (){}; 
-error.prototype = new error(); //hereda del objeto error
-error.prototype.constructor = error(); // creamos un constructor para error
-error.prototype.toString = function(){
-    return  this.nombre  + " : " + this.mensaje;
-};
+	error.prototype = new error(); //hereda del objeto error
+	error.prototype.constructor = error(); // creacion del constructor para el objeto error
+	error.prototype.toString = function(){
+		return  this.nombre  + " : " + this.mensaje;
+	};
 
-
-function ningunaInstancia(){ //Creacion del error ningunaInstancia 
-    this.nommbre = "ningunaInstancia";
-    this.mensaje = "Este objeto no es una instancia de la clase Persona";
+function ningunaInstancia(){ //creacion del error ningunaInstancia
+    this.nombre = "ningunaInstancia";
+    this.mensaje = "El elemento no es una Persona";
 }
 
-ningunaInstancia.prototype = new error();
-ningunaInstancia.prototype.constructor = ningunaInstancia; 
-
-function elementoNoEncontrado(){ //creacion del error elementoNoEncontrado
-    this.nombre = "Elemento no encontrado";
-    this.mensaje = "Este elemento no ha sido encontrado en la lista";
-}
-
-elementoNoEncontrado.prototype = new error(); 
-elementoNoEncontrado.prototype.constructor = elementoNoEncontrado; 
+ningunaInstancia.prototype = new error(); 
+ningunaInstancia.prototype.constructor = ningunaInstancia;
 
 function vacio(){ //creacion del error vacio
-    this.name = "Vacio";
-    this.message = "La lista esta vacia";
+    this.nombre = "Vacio";
+    this.mesnsaje = "La lista esta vacia";
 }
 
 vacio.prototype = new error(); 
@@ -110,7 +101,6 @@ function ListaOr(){ //creacion de la clase ListaOr
                     }else{
                         mayor = posicion;
                     }
-                    
                 }
                 listaOr.splice(posicion,0,elem);
 		} else{ 
@@ -281,28 +271,31 @@ function testListaOr(){
 		try{
 			console.log("Muestra la persona de la posicion 2 desde el principio: " + listaOr.indiceDe(per2));
 			console.log("Muestra la persona de la posicion 2 desde el principio: " + listaOr.indiceDe(per7));
+			console.log("Muestra hola desde el principio: " + listaOr.indiceDe("hola"));
 		}catch(err){
 			console.log(err);
 		}
 		try{
 			console.log("Muestra la persona de la posicion 2 desde la ultima posicion: " + listaOr.ultimoIndiceDe(per2));
 			console.log("Muestra la persona de la posicion 2 desde la ultima posicion: " + listaOr.ultimoIndiceDe(per7));
+			console.log("Muestra hola desde la ultima posicion: " + listaOr.ultimoIndiceDe("hola"));
 		}catch(err){
 			console.log(err);
 		}
+		
 		console.log("EL devuelve la persona que esta en la posicion 2: " + listaOr.devolverElemento(2));
 		console.log("Sustituye la persona de la posicion 2 por la per6: " + listaOr.sustituir(per6,3));
 		console.log(listaOr.escribir());
 		
 		try{
 				 console.log("Borrar persona de la posicion 4: " + listaOr.borrar(4));
-				 //console.log("Borrar persona de la posicion 46: " + listaOr.borrar(6));
+				 console.log("Borrar persona de la posicion 46: " + listaOr.borrar(6));
 				 console.log("Borrar persona de la posicion hola: " + listaOr.borrar("hola"));
 		}catch(err){
 				console.log(err);
 		}
 		 try{
-			console.log("Borrar per1: " + listaOr.borrarElemento(per1));
+			console.log("Borrar per2: " + listaOr.borrarElemento(per2));
 			console.log("Borrar per7: " + listaOr.borrarElemento(per7));
 			console.log("Borrar hola: " + listaOr.borrarElemento("hola"));
 		}catch (err){

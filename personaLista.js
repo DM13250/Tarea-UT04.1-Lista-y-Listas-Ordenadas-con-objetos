@@ -7,26 +7,17 @@ error.prototype.toString = function(){
     return  this.nombre  + " : " + this.mensaje;
 };
 
-
-function ningunaInstancia(){ //Creacion del error ningunaInstancia 
-    this.nommbre = "ningunaInstancia";
-    this.mensaje = "Este objeto no es una instancia de la clase Persona";
+function ningunaInstancia(){ //creacion del error ningunaInstancia
+    this.nombre = "ningunaInstancia";
+    this.mensaje = "El elemento no es una Persona";
 }
 
-ningunaInstancia.prototype = new error();
+ningunaInstancia.prototype = new error(); 
 ningunaInstancia.prototype.constructor = ningunaInstancia; 
 
-function elementoNoEncontrado(){ //creacion del error elementoNoEncontrado
-    this.nombre = "Elemento no encontrado";
-    this.mensaje = "Este elemento no ha sido encontrado en la lista";
-}
-
-elementoNoEncontrado.prototype = new error(); 
-elementoNoEncontrado.prototype.constructor = elementoNoEncontrado; 
-
 function vacio(){ //creacion del error vacio
-    this.name = "Vacio";
-    this.message = "La lista esta vacia";
+    this.nombre = "Vacio";
+    this.menesaje = "La lista esta vacia";
 }
 
 vacio.prototype = new error(); 
@@ -100,29 +91,29 @@ function Lista (){
 	};
 	
 	this.anhadirAt = function(elem, posicion) {//Funcion addAt. Añade un elemento en una posicion dada y los otros elemento recorrera una posicion mas
-    poscion = parseInt(posicion);
-    if(!(elem instanceof Persona)){
-		throw new ningunaInstancia().toString();
-	}
-    if (isNaN(posicion)){
-		throw new posicionIncorrecta().toString();
-	}
-    if (!estaLleno(lista)) {
-        if (posicion > (MAX_ELEMENTO - 1) || posicion < 0){
-			throw new fueraTamanho(posicion).toString();
+		poscion = parseInt(posicion);
+		if(!(elem instanceof Persona)){
+			throw new ningunaInstancia().toString();
 		}
+		if (isNaN(posicion)){
+			throw new posicionIncorrecta().toString();
+		}
+		if (!estaLleno(lista)) {
+			if (posicion > (MAX_ELEMENTO - 1) || posicion < 0){
+				throw new fueraTamanho(posicion).toString();
+			}
+			else{
+				lista.splice(posicion, 0, elem);
+			}
+		} 
 		else{
-			lista.splice(posicion, 0, elem);
+			throw new lleno().toString();
 		}
-    } 
-	else{
-		throw new lleno().toString();
-	}
     return this.tamanho();
 }
 	
 	this.escribir = function(){ //Funcion toString. Devuelve la lista en formato cadena.
- 	var nom = "";
+		var nom = "";
 		if (!this.estaVacio()){ 
 			var tam = this.tamanho() - 1; 
 			for (var i=0; i<tam;i++){
@@ -236,7 +227,7 @@ function Lista (){
 				borrado = lista.splice(tam, 1);
 				eliminado = true;
 			}
-        tam--;
+			tam--;
 		}
 		return eliminado;
 	}
@@ -287,19 +278,19 @@ function testLista(){
 	console.log(lista.escribir());
 	try{
 				 console.log("Borrar persona de la posicion 4: " + lista.borrar(4));
-				 console.log("Borrar persona de la posicion 46: " + listaOr.borrar(6));
+				 console.log("Borrar persona de la posicion 46: " + lista.borrar(6));
 				 console.log("Borrar persona de la posicion hola: " + lista.borrar("hola"));
 	}catch(err){
 				console.log(err);
 	}
-		 try{
-			console.log("Borrar per1: " + lista.borrarElemento(per1));
-			console.log("Borrar per7: " + lista.borrarElemento(per7));
-			console.log("Borrar hola: " + lista.borrarElemento("hola"));
-		}catch (err){
+	try{
+			console.log("Borrar elemento per1: " + lista.borrarElemento(per1));
+			console.log("Borrar elemento per7: " + lista.borrarElemento(per7));
+			console.log("Borrar elemento hola: " + lista.borrarElemento("hola"));
+	}catch (err){
 			console.log(err);
-		}
-		console.log(lista.escribir());
+	}
+	console.log(lista.escribir());
 	
 }
 
